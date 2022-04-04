@@ -3,19 +3,18 @@
 
   
 ## Model Details
-- This classifier trained to predict whether an employer's  income exceeds $50K/year.
-- **Random Forest** , only **Random Forest** will be considered for evaluation since it shows better results.
+- Prediction is whether employer's  income exceeds $50K/year.
+- **Random Forest** , only **Random Forest** is used.
 
 
 
 
 ## Intended Use
-- Intended to be used to determine what features impacts the income of a person.
-- Intended to determine underprivileged employers.
-- Not suitable for modern dates since the data is quite old.
-  
+- Finding features impacts the income of a person.
+- Detect underprivileged employers.
+
 ## Factors
- - Evaluate on features that may be underprivileged such as gender, race, etc.
+ - Ascess factors underprivileged such as gender, race, etc.
  
 ## Training Data
 - Census Income [Dataset](https://archive.ics.uci.edu/ml/datasets/census+income) from UCI
@@ -24,13 +23,13 @@
   - Encoded the categories using `LabelEncoder` and setting a value of 1000 for unknown categories
 - Numerical data:
   - Normalized the numerical data using `StandardScaler`
-- Dropped the `education` column because it is already available encoded in the `education-num` column
+
 
 ## Evaluation Data
-- Splitting the train data using sklearn `train_test_split` with a fixed `random_state=17` and stratified on `salary label`.
+- Split the train data using sklearn `train_test_split` with a fixed `random_state=17` and stratified on `salary label`.
   
 ## Metrics
-- Evaluation metrics includes **Precision**, **Recall** and **F1 score**.
+-  **Precision**, **Recall** and **F1 score** are used.
 - These 3 metrics can be calculated from the confusion matrix for binary classification which are more suitable for imbalanced problems.
 - Precision: Ratio between correct predictions and the total predictions
 - Recall: Ratio of the correct predictions and the total number of correct items in the set
@@ -50,6 +49,6 @@ All results shown are calculated for class 1 (>50K) using sklearn metrics
 |Recall         |0.89 |0.87  |
 |F1          	|0.61 |0.63  |
 
-<img src="screenshots/test_recall_mrina_1l.png" width="500" height="250">
+
 <img src="diagrams/slice_metrics_sex_test.png" width="500" height="250">
 <img src="diagrams/slice_metrics_race_test.png" width="500" height="250">
