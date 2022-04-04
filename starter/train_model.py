@@ -1,9 +1,11 @@
 # Script to train machine learning model.
 import numpy as np
+######################################################################33333
 import pandas as pd
+######################################################################33333
 from sklearn.model_selection import train_test_split
 
-# Add the necessary imports for the starter code.
+
 from starter.ml.data import process_data
 from .ml.model import compute_model_metrics, inference, train_model
 import joblib
@@ -78,7 +80,7 @@ def online_inference(row_dict, model_path, cat_features):
 
     row_transformed = np.concatenate([y_conts, y_cat], axis=1)
 
-    # get inference from model
+
     preds = inference(model=model, X=row_transformed)
 
     return '>50K' if preds[0] else '<=50K'

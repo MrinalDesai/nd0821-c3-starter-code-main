@@ -21,7 +21,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 def run():
     """
-    Main entry point
+    zzzzzz
     """
     logging.info("Loading and getting clean data")
     X, y = get_clean_data(config.DATA_DIR)

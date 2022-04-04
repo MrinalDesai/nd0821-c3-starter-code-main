@@ -16,7 +16,7 @@ from pipeline.data import get_clean_data
 @pytest.fixture(scope='session')
 def data():
     """
-    Data loaded from csv file used for tests
+    csv file data tested
 
     Returns:
         df (ge.DataFrame): Data loaded from csv file
@@ -37,7 +37,7 @@ def data():
 @pytest.fixture(scope='session')
 def sample_data():
     """
-    Sampled data from csv file used for tests
+    csv sample data tseted
 
     Returns:
         X_train: Features train data
@@ -50,12 +50,12 @@ def sample_data():
 
     data_df = pd.read_csv(config.DATA_DIR, nrows=10)
 
-    # chaning column names to use _ instead of -
+
     columns = data_df.columns
     columns = [col.replace('-', '_') for col in columns]
     data_df.columns = columns
 
-    # make all characters to be lowercase in string columns
+
     data_df = data_df.applymap(
         lambda s: s.lower() if isinstance(s, str) else s)
 

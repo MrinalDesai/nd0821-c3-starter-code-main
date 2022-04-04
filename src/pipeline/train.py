@@ -13,17 +13,11 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 def train(model, X_train, y_train, param_grid, feats):
     """
-    Creates and trains a pipline for the given model
+    trains pipeling
 
-    Args:
-        model (sklearn model): sklearn model
-        X_train (pandas dataframe): Train features data
-        y_train (pandas dataframe): Train labels data
-        param_grid (dict): Parameters grid check config.py
-        feats (dict): dict of features for each step of the pipeline check config.py
 
-    Returns:
-        model_pipe (sklearn pipeline/model): trained sklearn model or pipeline
+
+
     """
     logging.info("Creating model pipeline")
     model_pipe = get_model_pipeline(model, feats)

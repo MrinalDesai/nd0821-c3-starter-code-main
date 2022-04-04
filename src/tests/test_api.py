@@ -30,11 +30,11 @@ def test_greetings():
 ])
 def test_feature_info_status(test_input: str, expected: str):
     """
-    Tests GET request and status code for feature_info function
+    GET request and status code for feature_info function is tested
 
     Args:
-        test_input (str): example input
-        expected (str): example output
+        test_input (str):  input
+        expected (str):  output
     """
     response = client.get(f'/feature_info/{test_input}')
     assert response.status_code == HTTPStatus.OK
@@ -49,7 +49,6 @@ def test_feature_info_status(test_input: str, expected: str):
 def test_feature_info_response(test_input: str, expected: str):
     """
     Tests GET request response for feature_info function
-
     Args:
         test_input (str): example input
         expected (str): example output
@@ -96,7 +95,7 @@ def test_predict_response():
 
 def test_missing_feature_predict():
     """
-    Tests POST predict function when failed due to missing features
+    POST predict function fails missing features
     """
     data = {
         "age": 0

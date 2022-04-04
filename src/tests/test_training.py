@@ -6,10 +6,13 @@ This script holds the test functions for training model
 import joblib
 import pandas as pd
 from sklearn.pipeline import Pipeline
+###############################################################
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestClassifier
+###############################################################
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+###############################################################
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, StandardScaler
 
 import config
@@ -26,14 +29,15 @@ def test_model_pipeline():
 
     model_pipe = get_model_pipeline(config.MODEL, feats)
 
-    assert model_pipe[0].transformers[0][1] == 'drop', "First step: column transformer != drop"
+    assert model_pipe[0].transformers[0][1] == 'drop', "1st step: column transformer != drop"
     assert model_pipe[0].transformers[0][2] == feats[
         'drop'], f"{feats['drop']} only should be dropped"
-
+    ###############################################################
     assert isinstance(model_pipe[0].transformers[1][1],
-                      Pipeline), "Second step: column transformer != Pipeline"
+                      Pipeline), "2nd step: column transformer != Pipeline"
     assert isinstance(model_pipe[0].transformers[1][1][0],
-                      SimpleImputer), "Second step: column transformer Pipeline != first step: SimpleImputer"
+                      SimpleImputer), "2nd step: column transformer Pipeline != first step: SimpleImputer"
+    ###############################################################
     assert (
         isinstance(model_pipe[1], LogisticRegression) & isinstance(model_pipe[0].transformers[1][1][1], OneHotEncoder)
     ) or (
@@ -43,17 +47,17 @@ def test_model_pipeline():
         'categorical'], f"{feats['categorical']} only should be included in column transformer second step"
 
     assert isinstance(model_pipe[0].transformers[2][1],
-                      StandardScaler), "Third step of column transformer should be a StandardScaler"
+                      StandardScaler), "3rd stage of column transformer should be a StandardScaler"
     assert model_pipe[0].transformers[2][2] == feats[
-        'numeric'], f"{feats['numeric']} only should be included in column transformer third step"
+        'numeric'], f"{feats['numeric']} only must be included in column transformer 3rd stage"
 
-
+###############################################################
 def test_model_output_shape(sample_data: pd.DataFrame):
     """
-    Test model predictions are of correct shape
+    Test shapes
 
     Args:
-        sample_data (pd.DataFrame): Sample data to be tested
+        sample_data (pd.DataFrame): tested sample
     """
     sample_data.shape[0]
     sample_data.shape[1]
@@ -64,6 +68,7 @@ def test_model_output_shape(sample_data: pd.DataFrame):
 
     y_train_pred = inference_model(model, X_train)
     y_test_pred = inference_model(model, X_test)
+    ###############################################################
 
     assert X_train.shape[
         1] == 14, f"Train data number of columns should be 14 not {X_train.shape[1]}"
@@ -74,7 +79,7 @@ def test_model_output_shape(sample_data: pd.DataFrame):
     assert y_test_pred.shape[0] == X_test.shape[
         0], f"Predictions output shape {y_test_pred.shape[0]} is incorrect does not match input shape {X_test.shape[0]}"
 
-
+###############################################################
 def test_model_output_range(sample_data: pd.DataFrame):
     """
     Test model predictions are within range 0-1
@@ -91,11 +96,11 @@ def test_model_output_range(sample_data: pd.DataFrame):
     y_test_pred = inference_model(model, X_test)
 
     assert (y_train_pred >= 0).all() & (y_train_pred <=
-                                        1).all(), "Predictions output range is not from 0-1"
+                                        1).all(), "Pred output range shd be between 0-1"
     assert (y_test_pred >= 0).all() & (y_test_pred <= 1).all(
-    ), "Predictions output range is not from 0-1"
+    ), "Pred output range shd be between 0-1"
 
-
+###############################################################
 def test_model_evaluation():
     """
     Test evaluated model metrics are above certain thresholds
@@ -113,10 +118,10 @@ def test_model_evaluation():
     pre_train, rec_train, f1_train = compute_metrics(y_train_pred, y_train)
     pre_test, rec_test, f1_test = compute_metrics(y_test_pred, y_test)
 
-    assert pre_train > 0.7, "Train precision should be above 0.85"
-    assert rec_train > 0.85, "Train recall should be above 0.85"
-    assert f1_train > 0.58, "Train f1 should be above 0.85"
+    assert pre_train > 0.7, "Train precision < 0.85"
+    assert rec_train > 0.85, "Train recall < 0.85"
+    assert f1_train > 0.58, "Train f1 < 0.85"
 
-    assert pre_test > 0.68, "Test precision should be above 0.82"
-    assert rec_test > 0.82, "Test recall should be above 0.82"
-    assert f1_test > 0.56, "Test f1 should be above 0.80"
+    assert pre_test > 0.68, "Test precision < 0.82"
+    assert rec_test > 0.82, "Test recall < 0.82"
+    assert f1_test > 0.56, "Test f1 < 0.80"

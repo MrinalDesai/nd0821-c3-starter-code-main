@@ -44,16 +44,16 @@ def get_model_pipeline(model, feats):
         encoder = OneHotEncoder(handle_unknown='ignore')
 
 
-    # categorical feature preprocessor
+
     categ_preproc = make_pipeline(
         SimpleImputer(strategy='most_frequent'),
         encoder
     )
 
-    # numerical feature preprocessor
+
     numeric_preproc = StandardScaler()
 
-    # features preprocessor
+
     feats_preproc = ColumnTransformer([
         ('drop', 'drop', feats['drop']),
         ('categorical', categ_preproc, feats['categorical']),
@@ -62,7 +62,7 @@ def get_model_pipeline(model, feats):
         remainder='passthrough'
     )
 
-    # model pipeline
+
     model_pipe = Pipeline([
         ('features_preprocessor', feats_preproc),
         ('model', model)
@@ -76,14 +76,7 @@ def train_model(model, X_train, y_train, param_grid):
     Performs gridsearch on a model to choose best parameters
     and returns best model found
 
-    Args:
-        model (sklearn pipeline/model): sklearn model or pipeline
-        X_train (pandas dataframe): Train features data
-        y_train (pandas dataframe): Train labels data
-        param_grid (dict): Parameters grid check config.py
 
-    Returns:
-        model (sklearn pipeline/model): sklearn model or pipeline
     """
     g_search = GridSearchCV(
         model,
@@ -103,12 +96,7 @@ def inference_model(model, X):
     """
     Performs model inference
 
-    Args:
-        model (sklearn pipeline/model): sklearn model or pipeline
-        X (pandas dataframe): Features data
 
-    Returns:
-        None
     """
     preds = model.predict(X)
     return preds

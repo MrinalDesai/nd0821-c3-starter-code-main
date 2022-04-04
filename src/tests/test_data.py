@@ -8,10 +8,10 @@ import great_expectations as ge
 
 def test_columns_exist(data: ge.dataset.PandasDataset):
     """
-    Test if all expected columns exists
+    column exist or not
 
     Args:
-        data (ge.dataset.PandasDataset): Data to be tested
+        data (ge.dataset.PandasDataset): tested data
     """
     columns = [
         'age',
@@ -38,10 +38,10 @@ def test_columns_exist(data: ge.dataset.PandasDataset):
 
 def test_column_dtypes(data: ge.dataset.PandasDataset):
     """
-    Tests if columns are of correct datatypes
+    datatypes of columns
 
     Args:
-        data (ge.dataset.PandasDataset): Data to be tested
+        data (ge.dataset.PandasDataset): tested data
     """
     columns = {
         'age': 'int64',
@@ -68,10 +68,10 @@ def test_column_dtypes(data: ge.dataset.PandasDataset):
 
 def test_education_num_column(data: ge.dataset.PandasDataset):
     """
-    Tests if education column values is within correct range
+    education column values are in correct range
 
     Args:
-        data (ge.dataset.PandasDataset): Data to be tested
+        data (ge.dataset.PandasDataset): tseted data
     """
     assert data.expect_column_values_to_be_between(
         'education_num', 1, 17
@@ -102,10 +102,10 @@ def test_marital_status(data: ge.dataset.PandasDataset):
 
 def test_label_salary(data: ge.dataset.PandasDataset):
     """
-    Tests if salary label contains only two correct classes
+    salary label should contain two correct classes
 
     Args:
-        data (ge.dataset.PandasDataset):  Data to be tested
+        data (ge.dataset.PandasDataset):  tested data
     """
     assert data.expect_column_distinct_values_to_equal_set(
         'salary', [' <=50k', ' >50k']
@@ -114,10 +114,10 @@ def test_label_salary(data: ge.dataset.PandasDataset):
 
 def test_hours_per_week_range(data: ge.dataset.PandasDataset):
     """
-    Tests if hours_per_week column values are within correct range
+     hours_per_week column values should be in correct range
 
     Args:
-        data (ge.dataset.PandasDataset):  Data to be tested
+        data (ge.dataset.PandasDataset):  tested data
     """
     data.expect_column_values_to_be_between
     assert data.expect_column_values_to_be_between(
