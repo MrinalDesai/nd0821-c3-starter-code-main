@@ -21,8 +21,8 @@ def train(model, X_train, y_train, param_grid, feats):
     """
     logging.info("Creating model pipeline")
     model_pipe = get_model_pipeline(model, feats)
-
+    ################################################################
     logging.info(f"Training {model.__class__.__name__} model")
     model_pipe = train_model(model_pipe, X_train, y_train, param_grid)
-
+    ################################################################
     return model_pipe

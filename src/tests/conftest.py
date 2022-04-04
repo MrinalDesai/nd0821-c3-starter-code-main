@@ -18,8 +18,7 @@ def data():
     """
     csv file data tested
 
-    Returns:
-        df (ge.DataFrame): Data loaded from csv file
+
     """
     if not os.path.exists(config.DATA_DIR):
         pytest.fail(f"Data not found at path: {config.DATA_DIR}")

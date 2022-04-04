@@ -14,11 +14,12 @@ import config
 from pipeline.model import inference_model
 from pipeline.evaluate import compute_metrics
 
-
+################################################################
 sns.set()
+################################################################
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-
+################################################################
 def slice_metrics(column, X, y_true, y_pred):
     """
     Calculates column metrics
@@ -45,7 +46,7 @@ def slice_metrics(column, X, y_true, y_pred):
             'Recall',
             'F1'])
 
-
+################################################################
 def evaluate_slices(file, model_pipe, column, X, y, split):
     """
     model on a slice of data
@@ -53,16 +54,16 @@ def evaluate_slices(file, model_pipe, column, X, y, split):
 
     """
     logging.info(f"Evaluating {column} on slice of {split} data")
-
+    ################################################################
     y_pred = inference_model(model_pipe, X)
     slice_df = slice_metrics(column, X, y, y_pred)
-
+    ################################################################
     plot_slice_metrics(
         slice_df,
         f"{column} column for {split} data",
         os.path.join(config.PLOT_DIR, f"slice_metrics_{column}_{split}")
     )
-
+    ################################################################
     print(f"Model evaluation on {column} slice of train data", file=file)
     print(slice_df.to_string(index=False), file=file)
     print("", file=file)
@@ -74,15 +75,16 @@ def plot_slice_metrics(df, title, save_path=None):
 
     """
     df = df.melt(id_vars=['Category'], value_vars=['Precision', 'Recall', 'F1'])
-
+    ################################################################
     plt.figure(figsize=(14, 6))
     ax = sns.barplot(x='variable', y='value', hue='Category', data=df)
-
+    ################################################################
     ax.set(title=title)
     ax.legend(loc='lower right')
+    ################################################################
     ax.xaxis.label.set_visible(False)
     ax.yaxis.label.set_visible(False)
-
+    ################################################################
     for c in ax.containers:
         labels = [f'{v.get_height():.3f}' for v in c]
         ax.bar_label(c, labels=labels, label_type='edge')

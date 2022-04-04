@@ -32,9 +32,7 @@ def test_feature_info_status(test_input: str, expected: str):
     """
     GET request and status code for feature_info function is tested
 
-    Args:
-        test_input (str):  input
-        expected (str):  output
+
     """
     response = client.get(f'/feature_info/{test_input}')
     assert response.status_code == HTTPStatus.OK
@@ -49,9 +47,7 @@ def test_feature_info_status(test_input: str, expected: str):
 def test_feature_info_response(test_input: str, expected: str):
     """
     Tests GET request response for feature_info function
-    Args:
-        test_input (str): example input
-        expected (str): example output
+
     """
     response = client.get(f'/feature_info/{test_input}')
     assert response.json() == expected

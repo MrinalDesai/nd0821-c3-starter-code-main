@@ -1,6 +1,6 @@
 import requests
 
-
+################################################################
 data = {
     "age": 39,
     "workclass": "state-gov",
@@ -17,12 +17,12 @@ data = {
     "hours_per_week": 40,
     "native_country": "united-states"
 }
-
+################################################################
 # GET request
 response = requests.get('https://census-project.herokuapp.com/feature_info/age')
 print(response.status_code)
 print(response.json())
-
+################################################################
 # POST request
 response = requests.post('https://census-project.herokuapp.com/predict/', auth=('user', 'pass'), json=data)
 print(response.status_code)

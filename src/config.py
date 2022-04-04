@@ -62,11 +62,12 @@ FEATURES = {
 }
 
 SLICE_COLUMNS = ['sex', 'race']
-
+################################################################
 __DATA_FILE = 'edited_census.csv'
 #__DATA_FILE_SR= 'edited_census_salary_removed.csv'
 __MODEL_FILE = 'pipe_' + MODEL.__class__.__name__
 __EVAL_FILE = f'model_evaluation_{MODEL.__class__.__name__}.txt'
+################################################################
 __SLICE_FILE = f'output_slice_op_{MODEL.__class__.__name__}.txt'
 __ENCODER_FILE = f'pipe_encoder_{ MODEL.__class__.__name__}.joblib'
 
@@ -74,7 +75,9 @@ DATA_DIR = os.path.join(__MAIN_DIR, 'data', __DATA_FILE)
 #DATA_DIR_SR = os.path.join(__MAIN_DIR, 'data', __DATA_FILE_SR)
 MODEL_DIR = os.path.join(__MAIN_DIR, 'models', __MODEL_FILE)
 ENCODER_DIR = os.path.join(__MAIN_DIR, 'models', __ENCODER_FILE)
+################################################################
 EVAL_DIR = os.path.join(__MAIN_DIR, 'model_metrics', __EVAL_FILE)
 SLICE_DIR = os.path.join(__MAIN_DIR, 'model_metrics', __SLICE_FILE)
+################################################################
 PLOT_DIR = os.path.join(__MAIN_DIR, 'diagrams')
 EXAMPLES_DIR = os.path.join(__MAIN_DIR, 'src', 'app', 'examples.yaml')

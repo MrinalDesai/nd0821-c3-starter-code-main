@@ -29,7 +29,7 @@ def run():
     logging.info("Splitting data to train and test")
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=config.TEST_SIZE, random_state=config.RANDOM_STATE, stratify=y)
-
+    ################################################################
     logging.info("Started model training")
     model_pipe = train(
         config.MODEL,
@@ -37,22 +37,23 @@ def run():
         y_train,
         config.PARAM_GRID,
         config.FEATURES)
-
+    ################################################################
     logging.info("Evaluating and saving metrics to file")
+    ################################################################
     with open(config.EVAL_DIR, 'w') as file:
         evaluate(file, model_pipe, X_train, y_train, "train")
         evaluate(file, model_pipe, X_test, y_test, "test")
-
+    ################################################################
     logging.info("Evaluating slices and saving to file")
     with open(config.SLICE_DIR, 'w') as file:
         for col in config.SLICE_COLUMNS:
             evaluate_slices(file, model_pipe, col, X_train, y_train, "train")
             evaluate_slices(file, model_pipe, col, X_test, y_test, "test")
-
+    ################################################################
     logging.info("Saving model")
     joblib.dump(model_pipe, config.MODEL_DIR)
     joblib.dump(model_pipe, config.ENCODER_DIR)
 
-
+################################################################
 if __name__ == "__main__":
     run()

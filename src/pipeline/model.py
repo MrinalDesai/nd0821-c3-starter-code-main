@@ -22,12 +22,7 @@ def get_model_pipeline(model, feats):
     Creates model pipeline with feature preprocessing steps for
     encoding, scaling and handling missing data
 
-    Args:
-        model (sklearn model): sklearn model either RandomForestClassifier/LogisticRegression
-        feats (dict): dict of features for each step of the pipeline check config.py
 
-    Returns:
-        model_pipe (sklearn pipeline/model): sklearn model or pipeline
     """
     try:
         assert isinstance(model, (LogisticRegression, RandomForestClassifier))
@@ -35,7 +30,7 @@ def get_model_pipeline(model, feats):
         logging.error(
             "Model should be RandomForestClassifier or LogisticRegression %s",
             error)
-
+    ################################################################
     if isinstance(model, RandomForestClassifier):
         encoder = OrdinalEncoder(
             handle_unknown='use_encoded_value',
@@ -43,17 +38,17 @@ def get_model_pipeline(model, feats):
     elif isinstance(model, LogisticRegression):
         encoder = OneHotEncoder(handle_unknown='ignore')
 
-
+    ################################################################
 
     categ_preproc = make_pipeline(
         SimpleImputer(strategy='most_frequent'),
         encoder
     )
-
+    ################################################################
 
     numeric_preproc = StandardScaler()
 
-
+    ################################################################
     feats_preproc = ColumnTransformer([
         ('drop', 'drop', feats['drop']),
         ('categorical', categ_preproc, feats['categorical']),
@@ -61,7 +56,7 @@ def get_model_pipeline(model, feats):
     ],
         remainder='passthrough'
     )
-
+    ################################################################
 
     model_pipe = Pipeline([
         ('features_preprocessor', feats_preproc),
@@ -70,7 +65,7 @@ def get_model_pipeline(model, feats):
 
     return model_pipe
 
-
+################################################################
 def train_model(model, X_train, y_train, param_grid):
     """
     Performs gridsearch on a model to choose best parameters
@@ -78,6 +73,7 @@ def train_model(model, X_train, y_train, param_grid):
 
 
     """
+    ################################################################
     g_search = GridSearchCV(
         model,
         param_grid,
@@ -88,7 +84,7 @@ def train_model(model, X_train, y_train, param_grid):
     )
 
     _ = g_search.fit(X_train, y_train)
-
+    ################################################################
     return g_search.best_estimator_
 
 
