@@ -50,6 +50,6 @@ All results shown are calculated for class 1 (>50K) using sklearn metrics
 |Recall         |0.89 |0.87  |
 |F1          	|0.61 |0.63  |
 
-
+<img src="screenshots/test_recall_mrina_1l.JPG" width="500" height="250">
 <img src="diagrams/slice_metrics_sex_test.png" width="500" height="250">
 <img src="diagrams/slice_metrics_race_test.png" width="500" height="250">
